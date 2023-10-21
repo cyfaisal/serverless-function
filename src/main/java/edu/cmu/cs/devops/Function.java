@@ -54,11 +54,11 @@ public class Function {
         // Split the input into words
         String[] words = input.split("\\s+");
 
-        // Sort the words
+        // Sort the words in descending order
         Arrays.sort(words, (s1, s2) -> {
-            int result = s1.compareToIgnoreCase(s2);
+            int result = s2.compareToIgnoreCase(s1); // Compare in reverse order
             if (result == 0) {
-                result = s1.compareTo(s2);
+                result = s2.compareTo(s1);
             }
             return result;
         });
@@ -67,8 +67,16 @@ public class Function {
         return String.join(" ", words);
     }
 
+
     private String encodeBase64(String input) {
         byte[] encodedBytes = Base64.encodeBase64(input.getBytes());
         return new String(encodedBytes);
     }
+
+
+
+
+
+
+    
 }
