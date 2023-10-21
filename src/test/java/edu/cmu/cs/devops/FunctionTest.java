@@ -37,10 +37,13 @@ public class FunctionTest {
         @SuppressWarnings("unchecked")
         final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
 
-        final String input = "Hello from DevOps! Hi from Azure! 1sn't th1$ fun? 4";
-        final String encodedInput = BASE64.encodeAsString(input.getBytes());
-        final Optional<String> queryBody = Optional.of(encodedInput);
+        final Optional<String> queryBody = Optional.of(base64.encodeAsString(PROPER_REQUEST_INPUT.getBytes()));
         doReturn(queryBody).when(req).getBody();
+
+        doAnswer((Answer<HttpResponseMessage.Builder>) invocation -> {
+            HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+            return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
 
         final ExecutionContext context = mock(ExecutionContext.class);
         doReturn(Logger.getGlobal()).when(context).getLogger();
@@ -50,10 +53,7 @@ public class FunctionTest {
 
         // Verify
         assertEquals(ret.getStatus(), HttpStatus.OK);
-        // Calculate the expected output based on the input in descending order
-        String expectedOutput = "is fun DevOps Cloud awesome! and";
-        String encodedExpectedOutput = BASE64.encodeAsString(expectedOutput.getBytes());
-        assertEquals(ret.getBody().orElse(null), encodedExpectedOutput);
+        assertEquals(ret.getBody().toString(), base64.encodeAsString(PROPER_REQUEST_OUTPUT.getBytes()));
     }
 
     @Test
@@ -64,6 +64,11 @@ public class FunctionTest {
 
         final Optional<String> queryBody = Optional.empty();
         doReturn(queryBody).when(req).getBody();
+
+        doAnswer((Answer<HttpResponseMessage.Builder>) invocation -> {
+            HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+            return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
 
         final ExecutionContext context = mock(ExecutionContext.class);
         doReturn(Logger.getGlobal()).when(context).getLogger();
