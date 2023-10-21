@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="edu.cmu.cs.devops.FunctionTest" time="1.047" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="edu.cmu.cs.devops.FunctionTest" time="0.923" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.8.1+1-LTS"/>
@@ -58,6 +58,6 @@
     <property name="java.vendor.version" value="Microsoft-8297089"/>
     <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="edu.cmu.cs.devops.FunctionTest" name="edu.cmu.cs.devops.FunctionTest.testHttpTriggerJavaForProperInput" time="1.043"/>
-  <testcase classname="edu.cmu.cs.devops.FunctionTest" name="edu.cmu.cs.devops.FunctionTest.testHttpTriggerJavaForImproperInput" time="0.004"/>
+  <testcase classname="edu.cmu.cs.devops.FunctionTest" name="edu.cmu.cs.devops.FunctionTest.testHttpTriggerJavaForProperInput" time="0.921"/>
+  <testcase classname="edu.cmu.cs.devops.FunctionTest" name="edu.cmu.cs.devops.FunctionTest.testHttpTriggerJavaForImproperInput" time="0.002"/>
 </testsuite>
