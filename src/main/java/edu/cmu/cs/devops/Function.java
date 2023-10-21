@@ -67,8 +67,16 @@ public class Function {
         return String.join(" ", words);
     }
 
+
     private String encodeBase64(String input) {
         byte[] encodedBytes = Base64.encodeBase64(input.getBytes());
         return new String(encodedBytes);
     }
+
+
+
+
+
+
+    
 }
