@@ -17,7 +17,6 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-
 /**
  * Unit test for Function class.
  */
@@ -25,8 +24,8 @@ public class FunctionTest {
 
     private final Base64 base64 = new Base64();
 
-    private static final String PROPER_REQUEST_INPUT = "Hello from DevOps! Hi from Azure! 1sn't th1$ fun? 4";
-    private static final String PROPER_REQUEST_OUTPUT = "th1$ Hi Hello fun? from from DevOps! Azure! 4 1sn't";
+    private static final String PROPER_REQUEST_INPUT = "I'm going to build a CI/CD pipeline.";
+    private static final String PROPER_REQUEST_OUTPUT = "to pipeline. I'm going CI/CD build a";
 
     /**
      * Unit test for HttpTriggerJava method.
@@ -80,4 +79,7 @@ public class FunctionTest {
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79e0175 (Feature/blue green gitflow (#4))
