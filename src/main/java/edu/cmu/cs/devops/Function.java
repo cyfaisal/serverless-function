@@ -72,11 +72,4 @@ public class Function {
         byte[] encodedBytes = Base64.encodeBase64(input.getBytes());
         return new String(encodedBytes);
     }
-
-
-
-
-
-
-    
 }
