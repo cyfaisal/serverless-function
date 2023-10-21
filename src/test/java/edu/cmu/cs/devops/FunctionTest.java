@@ -79,7 +79,3 @@ public class FunctionTest {
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 79e0175 (Feature/blue green gitflow (#4))
