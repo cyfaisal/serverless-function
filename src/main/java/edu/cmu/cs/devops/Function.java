@@ -52,15 +52,17 @@ public class Function {
 
     private String sortWords(String input) {
         // Split the input into words
-        String[] words = input.split(" ");
+        String[] words = input.split("\\s+");
+
         // Sort the words in descending order
         Arrays.sort(words, (s1, s2) -> {
-            int result = s1.compareToIgnoreCase(s2); // Compare in reverse order
+            int result = s2.compareToIgnoreCase(s1); // Compare in reverse order
             if (result == 0) {
-                result = s1.compareTo(s2);
+                result = s2.compareTo(s1);
             }
             return result;
         });
+
         // Join the sorted words with whitespace
         return String.join(" ", words);
     }
