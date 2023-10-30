@@ -1,10 +1,8 @@
 {
-    // "task1_function_endpoint": "https://my-first-function-20231021072333796.azurewebsites.net/api/HttpExample",
     "github_username": "cyfaisal",
     "repository": "serverless-function",
     "token": "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",
     "function_app_name": "my-first-function-20231021072333796",
-    // "task2_function_endpoint": "https://my-first-function-20231021072333796.azurewebsites.net/api/HttpExample",
     "task3_prod_function_endpoint": "https://my-first-function-20231021072333796.azurewebsites.net/api/HttpExample",
     "task3_stage_function_endpoint": "https://my-first-function-20231021072333796-staging.azurewebsites.net/api/HttpExample"
 }

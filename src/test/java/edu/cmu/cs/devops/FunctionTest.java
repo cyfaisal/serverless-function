@@ -25,7 +25,7 @@ public class FunctionTest {
     private final Base64 base64 = new Base64();
 
     private static final String PROPER_REQUEST_INPUT = "Cloud DevOps is fun and awesome!";
-    private static final String PROPER_REQUEST_OUTPUT = "is fun DevOps Cloud awesome! and";
+    private static final String PROPER_REQUEST_OUTPUT = "and awesome! Cloud DevOps fun is";
 
     /**
      * Unit test for HttpTriggerJava method.
