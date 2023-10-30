@@ -4,24 +4,16 @@ name: Build and Deploy Job
 
 # Controls when the workflow will run
 on:
+  # Triggers the workflow on push event but only for the "main" branch
+  push:
+    branches: [main]
+
   pull_request: 
     branches: [develop]
     types: [closed]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-env:
-  # Description: Your function app name on Azure
-  # TODO : Replace <function_app_name> with the name of your function app
-  AZURE_FUNCTIONAPP_NAME: my-first-function-20231021072333796
-  # Description: The directory which contains pom.xml file
-  POM_XML_DIRECTORY: '.'
-  # Description: The function app name in your local development.
-  # TODO : Replace <pom_function_app_name> with the name of task. This can be found in your function's pom.xml, under the *'functionAppName'* tag under properties.
-  POM_FUNCTIONAPP_NAME: my-first-function-20231021072333796
-  # Description: The java version to use
-  JAVA_VERSION: '1.8.x'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,36 +21,49 @@ jobs:
   build-and-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    env:
+      # Description: Your function app name on Azure
+      # TODO : Replace <function_app_name> with the name of your function app
+      AZURE_FUNCTIONAPP_NAME: my-first-function-20231021072333796
+      # Description: The directory which contains pom.xml file
+      POM_XML_DIRECTORY: '.'
+      # Description: The function app name in your local development.
+      # TODO : Replace <pom_function_app_name> with the name of task. This can be found in your function's pom.xml, under the *'functionAppName'* tag under properties.
+      POM_FUNCTIONAPP_NAME: my-first-function-20231021072333796
+      # Description: The java version to use
+      JAVA_VERSION: '1.8.x'
+
     steps:
-      # Step 1: Check out the repository
-      - name: 'Checkout Repository'
-        uses: actions/checkout@v2
+        - name: Checkout code
+          uses: actions/checkout@v2
 
-      # Step 2: Log in to Azure
-      - name: 'Azure Login'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        - name: Set up Azure CLI
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Step 3: Set up Java SDK
-      - name: 'Set up Java SDK'
-        uses: actions/setup-java@v1
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
+        - name: Setup Java
+          uses: actions/setup-java@v1
+          with:
+            java-version: ${{ env.JAVA_VERSION }}
 
-      # Step 4: Build the function app
-      - name: 'Restore Project Dependencies Using Mvn'
-        shell: pwsh
-        run: |
-          pushd './${{ env.POM_XML_DIRECTORY }}'
-          mvn clean package
-          mvn azure-functions:package
-          popd
+        - name: 'Restore Project Dependencies Using Mvn'
+          shell: pwsh
+          run: |
+            pushd './${{ env.POM_XML_DIRECTORY }}'
+            mvn clean package
+            mvn azure-functions:package
+            popd
 
-      # Step 5: Deploy the function app
-      - name: 'Run Azure Functions Action'
-        uses: Azure/functions-action@v1
-        with:
-          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: './${{ env.POM_XML_DIRECTORY }}/target/azure-functions/${{ env.POM_FUNCTIONAPP_NAME }}'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_STAGING_PUBLISH_PROFILE }}
+        - name: 'Run Azure Functions Action'
+          uses: Azure/functions-action@v1
+          with:
+            # Description: Name of the Azure Function App
+            app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+            # Description: Path to package or folder. \*.zip or a folder to deploy
+            package: './${{ env.POM_XML_DIRECTORY }}/target/azure-functions/${{ env.POM_FUNCTIONAPP_NAME }}'
+            # Description: Publish profile (\*.publishsettings) file contents with web deploy secrets
+            publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_STAGING_PUBLISH_PROFILE }}
+
+          
