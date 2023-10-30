@@ -52,8 +52,7 @@ public class Function {
 
     private String sortWords(String input) {
         // Split the input into words
-        String[] words = input.split("\\s+");
-
+        String[] words = input.split(" ");
         // Sort the words in descending order
         Arrays.sort(words, (s1, s2) -> {
             int result = s2.compareToIgnoreCase(s1); // Compare in reverse order
@@ -62,7 +61,6 @@ public class Function {
             }
             return result;
         });
-
         // Join the sorted words with whitespace
         return String.join(" ", words);
     }
